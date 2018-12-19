@@ -70,7 +70,6 @@ rows.forEach((row, i) => {
 });
 
 function findPossiblePawnPos(obj) {
-
 }
 
 // 2 col, 1 row
@@ -78,6 +77,7 @@ function findPossiblePawnPos(obj) {
 function findPossibleKnightPos(obj) { // 'A4'
 
   var potentialPos = [];
+
 
   var indexOfObjCol =  columns.indexOf(obj.col);
 
@@ -102,8 +102,32 @@ function findPossibleKnightPos(obj) { // 'A4'
   return potentialPos;
 }
 
-function findPossiblePawnPos(obj) {
+function findPossibleKingPos(obj) {
+  var potentialPos = [];
+
+
+  var indexOfObjCol =  columns.indexOf(obj.col);
+
+  var potentialColumns = [];
+
+  columns.forEach((col, index) => {
+    if(Math.abs(index - indexOfObjCol) <= 1) {
+      potentialColumns.push(col);
+    }
+  });
   
+  potentialColumns.forEach((col, index) => {
+    if(Math.abs(columns.indexOf(col) - indexOfObjCol) <= 1) {
+      (rows.indexOf(obj.row-1) !== -1) ? potentialPos.push(col + (obj.row-1)) : null;
+      (rows.indexOf(obj.row+1) !== -1) ? potentialPos.push(col + (obj.row+1)) : null;
+      (rows.indexOf(obj.row) !== -1 && obj.col !== col) ? potentialPos.push(col + (obj.row)) : null;
+    }
+    });
+  // var currentPos = potentialPos.indexOf(obj.col+obj.row);
+  // console.log(currentPos)
+  // potentialPos.splice(currentPos, 1);
+  // console.log(potentialPos, 'check2')
+  return potentialPos;
 }
 
 
@@ -130,7 +154,7 @@ function Piece(name, color, row, col) {
 
     console.log('I am supposed to move to ', nextPos, 'and my current pos is', currentPos);
 
-    // empty the .piece property on the cell object
+    // empty the .piece property on the cell objectass
     cells[currentPos].piece = null;
     // set an new .piece prop on the nextPos cell obj
     // kill logic
@@ -173,6 +197,8 @@ function renderGame() {
 
     });
   })
+  console.log(cells);
 }
+
 
 renderGame();
