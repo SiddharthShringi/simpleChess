@@ -130,6 +130,119 @@ function findPossibleKingPos(obj) {
   return potentialPos;
 }
 
+function findpossibleRookPos(obj) {
+  var potentialPos = [];
+
+
+  var indexOfObjCol =  columns.indexOf(obj.col);
+
+  columns.forEach((col, index) => {
+    if (obj.col != col && obj.row != (index+1)) {
+      potentialPos.push(col + obj.row);
+      potentialPos.push(obj.col + (index+1));
+    }
+  });
+
+
+
+  return potentialPos;
+}
+
+function findpossibleBishopPos(obj) {
+  var potentialPos = [];
+
+
+  var indexOfObjCol =  columns.indexOf(obj.col);
+  var indexOfObjRow = rows.indexOf(obj.row);
+
+  // var columnLeft = columns.length - indexOfObjCol;
+  // var rowDown =  rows.length - indexOfObjRow;
+
+  if (indexOfObjCol < indexOfObjRow) {
+
+  }
+
+  for(i = indexOfObjCol-1, j = indexOfObjRow-1; i >=0 && j >= 0; i--,j-- ){
+    potentialPos.push(columns[i] + rows[j]);
+    }
+  for(i = indexOfObjCol + 1, j = indexOfObjRow -1 ; i < 8 && j >= 0; i++,j-- ){
+    potentialPos.push(columns[i] + rows[j]);
+    }  
+  for(i = indexOfObjCol - 1, j = indexOfObjRow + 1; i >= 0 && j < 8; i--,j++ ){
+    potentialPos.push(columns[i] + rows[j]);
+    }  
+  for(i = indexOfObjCol + 1, j = indexOfObjRow + 1; i < 8 && j < 8; i++,j++ ){
+    potentialPos.push(columns[i] + rows[j]);
+    }
+
+  
+
+  // columns.forEach((col,i) => {
+  //   rows.forEach((row, j) => {
+
+  //   })
+  // })
+
+  return potentialPos;
+}
+
+
+function findpossibleQueenPos(obj) {
+  var potentialPos = [];
+
+
+  var indexOfObjCol = columns.indexOf(obj.col);
+  var indexOfObjRow = rows.indexOf(obj.row);
+
+  columns.forEach((col, index) => {
+    if (obj.col != col && obj.row != (index+1)) {
+      potentialPos.push(col + obj.row);
+      potentialPos.push(obj.col + (index+1));
+    }
+  });
+
+ 
+  for(i = indexOfObjCol-1, j = indexOfObjRow-1; i >=0 && j >= 0; i--,j-- ){
+    potentialPos.push(columns[i] + rows[j]);
+    }
+  for(i = indexOfObjCol + 1, j = indexOfObjRow -1 ; i < 8 && j >= 0; i++,j-- ){
+    potentialPos.push(columns[i] + rows[j]);
+    }  
+  for(i = indexOfObjCol - 1, j = indexOfObjRow + 1; i >= 0 && j < 8; i--,j++ ){
+    potentialPos.push(columns[i] + rows[j]);
+    }  
+  for(i = indexOfObjCol + 1, j = indexOfObjRow + 1; i < 8 && j < 8; i++,j++ ){
+    potentialPos.push(columns[i] + rows[j]);
+    }
+
+  return potentialPos;
+}
+
+
+function findpossiblePawnPos(obj) {
+  var potentialPos = [];
+
+
+  var indexOfObjCol =  columns.indexOf(obj.col);
+
+  if (obj.piece.color == "white"){
+    if (obj.piece.timesMoved == 0) {
+    potentialPos.push(obj.col + (obj.row+1));
+    potentialPos.push(obj.col + (obj.row+2));
+  } else {
+    potentialPos.push(obj.col + (obj.row+1));
+  }
+
+  } else if(obj.piece.color == 'black') {
+    if (obj.piece.timesMoved == 0) {
+    potentialPos.push(obj.col + (obj.row-1));
+    potentialPos.push(obj.col + (obj.row-2));
+  } else {
+    potentialPos.push(obj.col + (obj.row-1));
+  }
+  }
+  return potentialPos;
+}
 
 
 function Piece(name, color, row, col) {
